@@ -1,0 +1,71 @@
+package com.goldilocks;
+
+import java.util.Scanner;
+
+
+public class StringToBinaryConversion {
+	
+	private static Long convertStringToDecimal(String input) throws Exception {
+		long result = 0L;
+		for(int i = 0; i < input.length(); i ++) {
+			char currentCharacter = input.charAt(i);   
+			if(currentCharacter >= '0' && currentCharacter <= '9') { 
+				//Converting the character to digit only if the character is a number from 0 to 9
+				int digit = currentCharacter - '0';
+				result = (result * 10) + digit;
+				
+			} else {                
+				throw new Exception("Invalid input found.");				
+			}
+		}
+		return result;
+	}
+	
+	private static String convertDecimalToBinary(Long decimalNumber) {
+		String result = "";
+		while(decimalNumber != 0) {
+			long remainder = decimalNumber % 2;
+			result =  remainder + result;
+			decimalNumber = decimalNumber/2;
+		}
+		return result;
+	}
+	
+	private static String convertStringToBinary(String input) {
+		Long decimalNumber = null;
+		try {
+			//Assuming if string length is too large then Long would be the best choice.
+			decimalNumber = convertStringToDecimal(input);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		if(decimalNumber != null) {
+			String binaryNumber = convertDecimalToBinary(decimalNumber);
+			return binaryNumber;
+		}
+		return "";
+	}
+	
+	
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		/*
+		 This is the direct approach to convert the string of number to decimal
+		 
+		  String input = sc.next();
+		  try{
+		  	int result = Integer.parseInt(input);
+		  	System.out.println(result);
+		  } catch(Exception e) {
+			  System.out.println("Please Enter Valid Input");
+		  }
+		  
+		  */
+		System.out.println("Please enter any number");
+		 
+		String input = sc.next();
+		convertStringToBinary(input);
+	}
+}
